@@ -58,9 +58,18 @@ int main(int argc, const char* argv[])
 		exit(-1);
 	}
 	
+	int *arr;
+
+	arr = (int *)malloc(sizeof(int)*SIZE);
+
 	for(i = 0; i < SIZE; i++)
 	{
-		fprintf(fp, "%u ", rand());
+		arr[i] = i;
+	}
+
+	for(i = 0; i < SIZE; i++)
+	{
+		fprintf(fp, "%u\n", arr[rand()%SIZE]);
 	}
 
 	return 0;
