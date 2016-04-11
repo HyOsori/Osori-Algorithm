@@ -15,6 +15,23 @@ void usage()
     std::cerr << "Usage : sort <input-file> <output-file>" << std::endl;
 }
 
+void InsertionSort(int *arr, unsigned int n)
+{
+    int key, i, j;
+
+    for(j = 1; j < n; j++)
+    {
+        key = arr[j];
+        i = j - 1;
+        while(i >= 0 && arr[i] > key)
+        {
+            arr[i+1] = arr[i];
+            i = i - 1;
+        }
+        arr[i+1] = key;
+    }
+}
+
 int main(int argc, const char * argv[]) {
     
     if(argc != 3)
@@ -31,7 +48,7 @@ int main(int argc, const char * argv[]) {
     }
     
     unsigned int i = 0;
-    unsigned int arr[SIZE];
+    int arr[SIZE];
 
     while(!feof(ifp))
     {
@@ -39,9 +56,7 @@ int main(int argc, const char * argv[]) {
         i++;
     }
     
-    
-
-
+    InsertionSort(arr, SIZE);
     
     FILE *ofp = fopen(argv[2], "w");
     if(ofp == NULL)
