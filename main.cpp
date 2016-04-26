@@ -9,18 +9,20 @@
 #include <iostream>
 #include <string.h>
 
-typedef enum {ERROR, INSERTION_SORT, MERGE_SORT} SORT_TYPE;
+#define SWAP(X, Y) {int temp = X; X = Y; Y = temp;}
 
-unsigned int SIZE = 1000000;
+typedef enum {ERROR, INSERTION_SORT, MERGE_SORT, QUICK_SORT} SORT_TYPE;
+
+int SIZE = 100000;
 
 void usage()
 {
     std::cerr << "Usage : <sort-type> <input-file> <output-file>" << std::endl;
 }
 
-bool CheckSorting(int *arr, unsigned int size)
+bool CheckSorting(int *arr, int size)
 {
-    unsigned int i;
+    int i;
 
     for(i = 0; i < size - 1; i++)
     {
@@ -34,7 +36,7 @@ bool CheckSorting(int *arr, unsigned int size)
     return true;
 }
 
-void InsertionSort(int *arr, unsigned int size)
+void InsertionSort(int *arr, int size)
 {
     int key, i, j;
 
@@ -51,12 +53,12 @@ void InsertionSort(int *arr, unsigned int size)
     }
 }
 
-void Merge(int *arr, unsigned int start, unsigned int mid, unsigned int end)
+void Merge(int *arr, int start, int mid, int end)
 {
     int *temp = (int *)malloc(sizeof(int)*(end - start + 1));
-    unsigned int i = start;
-    unsigned int j = mid + 1;
-    unsigned int k = 0;
+    int i = start;
+    int j = mid + 1;
+    int k = 0;
 
     while(1)
     {
@@ -104,15 +106,47 @@ void Merge(int *arr, unsigned int start, unsigned int mid, unsigned int end)
     free(temp);
 }
 
-void MergeSort(int *arr, unsigned int start, unsigned int end)
+void MergeSort(int *arr, int start, int end)
 {
     if(start >= end)
         return;
 
-    unsigned int mid = (start + end)/2;
+    int mid = (start + end)/2;
     MergeSort(arr, start, mid);
     MergeSort(arr, mid+1, end);
     Merge(arr, start, mid, end);
+
+}
+
+int Partition(int *arr, int p, int r)
+{
+    int pivot, temp;
+    int i, j;
+
+    pivot = arr[p];
+    i = p;
+    for(j = p+1; j <= r; j++)
+    {
+        if(arr[j] <= pivot)
+        {
+            i = i+1;
+            SWAP(arr[i], arr[j]);
+        }
+    }
+
+    SWAP(arr[p], arr[i]);
+
+    return i;
+}
+
+void QuickSort(int *arr, int p, int r)
+{
+    if(p < r)
+    {
+        int q = Partition(arr, p, r);
+        QuickSort(arr, p, q-1);
+        QuickSort(arr, q+1, r);
+    }
 
 }
 
@@ -122,6 +156,8 @@ SORT_TYPE GetSortType(const char * sname)
         return INSERTION_SORT;
     if(strcmp(sname, "MergeSort") == 0)
         return MERGE_SORT;
+    if(strcmp(sname, "QuickSort") == 0)
+        return QUICK_SORT;
 
     return ERROR;
 }
@@ -148,7 +184,7 @@ int main(int argc, const char * argv[]) {
         exit(EXIT_FAILURE);
     }
     
-    unsigned int i = 0;
+    int i = 0;
     int arr[SIZE];
 
     while(!feof(ifp))
@@ -165,9 +201,12 @@ int main(int argc, const char * argv[]) {
         case MERGE_SORT:
             MergeSort(arr, 0, SIZE-1);
             break;
+        case QUICK_SORT:
+            QuickSort(arr, 0, SIZE-1);
         default:
             break;
     }
+    
     //InsertionSort(arr, SIZE);
     //MergeSort(arr, 0, SIZE-1);
     if(CheckSorting(arr, SIZE) == false)
