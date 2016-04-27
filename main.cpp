@@ -7,7 +7,12 @@
 //
 
 #include <iostream>
+#include <stdio.h>
 #include <string.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <time.h>
+#include "timer.h"
 
 #define SWAP(X, Y) {int temp = X; X = Y; Y = temp;}
 
@@ -32,6 +37,8 @@ bool CheckSorting(int *arr, int size)
             return false;
         }
     }
+
+	std::cout << "Sort is Complete" << std::endl;
 
     return true;
 }
@@ -192,7 +199,10 @@ int main(int argc, const char * argv[]) {
         fscanf(ifp, "%u", &arr[i]);
         i++;
     }
-    
+
+	struct timer* timer = CreateTimer();
+	
+	CheckTime(&timer->start);
     switch(stype)
     {
         case INSERTION_SORT:
@@ -206,12 +216,15 @@ int main(int argc, const char * argv[]) {
         default:
             break;
     }
-    
+	CheckTime(&timer->end);
+
     //InsertionSort(arr, SIZE);
     //MergeSort(arr, 0, SIZE-1);
     if(CheckSorting(arr, SIZE) == false)
         exit(EXIT_FAILURE);
 
+	GetDiff(timer);
+	PrintTimer(timer);
 
     FILE *ofp = fopen(argv[3], "w");
     if(ofp == NULL)
