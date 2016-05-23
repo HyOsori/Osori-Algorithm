@@ -184,7 +184,7 @@ void CountSort(int *arr, int n)
 		count[i] = 0;
 	for(j = 0; j < n; j++)
 		count[arr[j]] = count[arr[j]] + 1;
-	for(i = 2; i <= k; i++)
+	for(i = 1; i <= k; i++)
 		count[i] = count[i] + count[i-1];
 	for(j = n-1; j >= 0; j--)
 	{
@@ -257,8 +257,10 @@ int main(int argc, const char * argv[]) {
             break;
         case QUICK_SORT:
             QuickSort(arr, 0, SIZE-1);
+			break;
 		case COUNT_SORT:
-			CountSort(arr, SIZE); 
+			CountSort(arr, SIZE);
+			break;
         default:
             break;
     }
