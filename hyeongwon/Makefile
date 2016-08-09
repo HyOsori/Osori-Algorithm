@@ -1,23 +1,18 @@
-.SUFFIXES : .c .cpp .o
-CC = g++
+CXX = g++
+CPPFLAGS += -Iinclude
+CXXFLAGS += -std=c++11 -pg -g -W -Wall
 
-CFLAGS = -g -Wall
- all : hw
-
-OBJS = ./src/main.o
-SRCS = ./src/$(OBJS:.o=.cpp)
-BIN = ./bin/
-LIB = ./lib
-INCLUDE = ./include
+CXX_SRCS := $(wildcard util/*cc)         \
+            $(wildcard src/*.cc)
+OBJS := $(CXX_SRCS:.cc=.o)
+BIN = bin/
 LIBNAME = -lpthread -lrt
 
-CFLAGS += -I$(INCLUDE)
+all: test
 
-hw: $(OBJS)
-	$(CC) -std=c++11 -g -o $(BIN)main $(OBJS) $(LIBNAME) -L$(LIB) -O3
+test: $(OBJS)
+	$(CXX) $(CXXFLAGS) -o $(BIN)$@ $^ $(LIBNAME)
 
 clean:
-	rm -rf $(OBJS)
+	rm $(BIN)test $(OBJS) *.txt *.txt.swp
 
-allclean:
-	rm -rf $(OBJS) $(BIN)*
