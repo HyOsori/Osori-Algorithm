@@ -2,15 +2,19 @@
 #include <stdlib.h>
 #include <time.h>
 
-void usage()
+#define SWAP(x,y) {x=x^y; y=x^y; x=x^y;}
+
+void usage(void)
 {
     puts("Usage : test_generator <filename> <size>");
+    puts("Example : ./test_generator input.txt 10000");
+    puts("Warning : If you put too much number in size option,i\
+            created file could be very large");
 }
 
 void swap(int* x, int* y)
 {
-    int t;
-    t = *x;
+    int t = *x;
     *x = *y;
     *y = t;
 }
@@ -23,7 +27,8 @@ void shuffle(int* arr, int size)
     {
         if(rand()%2)
         {
-            swap(&arr[i], &arr[rand()%size]);
+//            swap(&arr[i], &arr[rand()%size]);
+            SWAP(arr[i], arr[rand()%size]);
         }
     }
 }
@@ -40,8 +45,8 @@ int main(int argc, const char* argv[])
     FILE *fp = fopen(argv[1], "w");
     if(!fp)
     {       
-            puts("Error : Cannot open input-file");
-            exit(-1);
+        puts("Error : Cannot open input-file");
+        exit(-1);
     }
     
     int size = atoi(argv[2]);
@@ -50,14 +55,14 @@ int main(int argc, const char* argv[])
 
     for(i = 0; i < size; i++)
     {
-            arr[i] = i;
+        arr[i] = i;
     }
 
     shuffle(arr, size);
 
     for(i = 0; i < size; i++)
     {
-            fprintf(fp, "%u\n", arr[i]);
+        fprintf(fp, "%d\n", arr[i]);
     }
 
     return 0;

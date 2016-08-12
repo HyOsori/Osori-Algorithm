@@ -1,0 +1,21 @@
+<Project 1 : Sorting>
+
+This project is to implement various kind of sorting algorithms
+and see the different time complexity among those algorithms. 
+
+Implement insertion sort, merge sort, quick sort and count sort
+and check the execution time for each sorting program.
+
+- Test generator program is provided in this directory
+Program "test_generator" generates the test files.
+Test files would have random numbers unordered.
+You can generates test files by the size you want to generate.
+
+Compile : make
+Execute : ./test_generator <filename> <size>
+It's your choice to name <filename>, but you should include .txt.
+<size> is the amount of distinct numbers you want to generate.
+(You should input size less than maximum int coverage..)
+
+(Example : ./test_generator input.txt 100000)
+

@@ -1,11 +1,3 @@
-//
-//  main.cpp
-//  [Algorithm]Sorting
-//
-//  Created by 장형원 on 2016. 4. 8..
-//  Copyright © 2016년 jhw. All rights reserved.
-//
-
 #include <iostream>
 #include <stdio.h>
 #include <string.h>
@@ -13,7 +5,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include "timer.h"
-#define SWAP(X, Y) {int temp = X; X = Y; Y = temp;}
+#define SWAP(X, Y) {X=X^Y; Y=X^Y; X=X^Y;}
 
 typedef enum {ERROR, INSERTION_SORT, MERGE_SORT, QUICK_SORT, COUNT_SORT} SORT_TYPE;
 
