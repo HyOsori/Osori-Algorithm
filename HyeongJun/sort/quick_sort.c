@@ -42,14 +42,12 @@ int partition(int arr[], int p, int r) {
 	}
 	
 	swap(&arr[p], &arr[pivot]);
-	if (arr[i]>arr[i + 1]) {
-		swap(&arr[i], &arr[i + 1]);
-	}
+	pivot = arr[i];
 	while (j <= r) {
-		if (arr[i]>arr[j]) {
-			swap(&arr[++i], &arr[j++]);
+		if(pivot>arr[j]){
+			swap(&arr[++i],&arr[j++]);
 		}
-		else {
+		else{
 			j++;
 		}
 	}
