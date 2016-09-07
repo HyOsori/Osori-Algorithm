@@ -1,12 +1,13 @@
 <Project 1 : Sorting>
 
-There are several sorting algorithms such as insertion, merge, counting, quick and the sample text file
+There are several sorting algorithms such as insertion, merge, counting, quick and the sample text file in src directory
 
 sample text file is composed of the unsorted numbers, and they have a blank between numbers
 ,thus if you want to use other sample text file, you must make text file that include a blank between numbers
 
-Compile : gcc -g <c file> -o <generator name that you want>
-         ex> gcc -g quick_sort.c -o test_quick
-Execute : ./<generator name> <text file name>
-         ex>./test_quick sample.txt
+
+Compile : make
+Execute : ./sorting_exe <Q,M,I,C> <sample.txt>
+	Q = quick sort, M = merge sort, I = insertion sort, C = counting sort
+	e.g>./sorting_exe Q sample.txt
 

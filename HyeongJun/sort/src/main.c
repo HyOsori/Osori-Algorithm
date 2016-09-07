@@ -8,7 +8,7 @@ FILE* fi;
 
 int main(int argc, char* argv[]){
 	if(argv[1]==NULL || argv[2]==NULL){
-		printf("ERROR : Insert the arguments\n");
+		printf("ERROR : Insert the arguments\ne.g)sorting_exe Q sample.txt\n");
 		return 0;
 	}
 
@@ -48,7 +48,7 @@ int main(int argc, char* argv[]){
 			insert_sort(arr,length);
 			break;
 		default:
-			printf("ERROR : Input appropriate arguments\n");
+			printf("ERROR : Input appropriate arguments\nyou should input Q,M,I and C\n");
 			return 0;
 			break;
 	}

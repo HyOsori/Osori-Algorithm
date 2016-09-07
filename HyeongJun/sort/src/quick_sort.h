@@ -44,8 +44,14 @@ int partition(int arr[], int p, int r) {
 }
 void print_arr(int arr[], int length) {
 	int i;
+	int check = arr[0];
 	for (i = 0; i < length; i++) {
-		printf("%d ", arr[i]);
+		if(check>arr[i]){
+			printf("ERROR : Sorting algorithms is not appropriate\n");
+		}
+		else{
+			printf("%d ", arr[i]);
+		}
 	}
 	printf("\n");
 }
