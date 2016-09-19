@@ -4,12 +4,12 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
+#include "sort.h"
 #include "timer.h"
-#define SWAP(X, Y) {X=X^Y; Y=X^Y; X=X^Y;}
 
 typedef enum {ERROR, INSERTION_SORT, MERGE_SORT, QUICK_SORT, COUNT_SORT} SORT_TYPE;
 
-int SIZE = 1000000;
+int SIZE = 10;
 
 void usage()
 {
@@ -33,120 +33,6 @@ bool CheckSorting(int *arr, int size)
 	std::cout << "Sort is Complete" << std::endl;
 
     return true;
-}
-
-void InsertionSort(int *arr, int size)
-{
-    int key, i, j;
-
-    for(j = 1; j < size; j++)
-    {
-        key = arr[j];
-        i = j - 1;
-        while(i >= 0 && arr[i] > key)
-        {
-            arr[i+1] = arr[i];
-            i = i - 1;
-        }
-        arr[i+1] = key;
-    }
-}
-
-void Merge(int *arr, int start, int mid, int end)
-{
-    int *temp = (int *)malloc(sizeof(int)*(end - start + 1));
-    int i = start;
-    int j = mid + 1;
-    int k = 0;
-
-    while(1)
-    {
-        if(arr[i] > arr[j])
-        {
-            temp[k] = arr[j];
-            k++;
-            j++;
-        }
-        else
-        {
-            temp[k] = arr[i];
-            k++;
-            i++;
-        }
-
-        if(i > mid)
-        {
-            while(j <= end)
-            {
-                temp[k] = arr[j];
-                k++;
-                j++;
-            }
-            break;
-        }
-
-        if(j > end)
-        {
-            while(i <= mid)
-            {
-                temp[k] = arr[i];
-                k++;
-                i++;
-            }
-            break;
-        }
-    }
-
-    for(i = start, k = 0; i <= end; i++, k++)
-    {
-        arr[i] = temp[k];
-    }
-
-    free(temp);
-}
-
-void MergeSort(int *arr, int start, int end)
-{
-    if(start >= end)
-        return;
-
-    int mid = (start + end)/2;
-    MergeSort(arr, start, mid);
-    MergeSort(arr, mid+1, end);
-    Merge(arr, start, mid, end);
-
-}
-
-int Partition(int *arr, int p, int r)
-{
-    int pivot, temp;
-    int i, j;
-
-    pivot = arr[p];
-    i = p;
-    for(j = p+1; j <= r; j++)
-    {
-        if(arr[j] <= pivot)
-        {
-            i = i+1;
-            SWAP(arr[i], arr[j]);
-        }
-    }
-
-    SWAP(arr[p], arr[i]);
-
-    return i;
-}
-
-void QuickSort(int *arr, int p, int r)
-{
-    if(p < r)
-    {
-        int q = Partition(arr, p, r);
-        QuickSort(arr, p, q-1);
-        QuickSort(arr, q+1, r);
-    }
-
 }
 
 int FindLargest(int *arr, int n)
@@ -245,10 +131,10 @@ int main(int argc, const char * argv[]) {
             InsertionSort(arr, SIZE);
             break;
         case MERGE_SORT:
-            MergeSort(arr, 0, SIZE-1);
+            MergeSort(arr, SIZE);
             break;
         case QUICK_SORT:
-            QuickSort(arr, 0, SIZE-1);
+            QuickSort(arr, SIZE);
 			break;
 		case COUNT_SORT:
 			CountSort(arr, SIZE);

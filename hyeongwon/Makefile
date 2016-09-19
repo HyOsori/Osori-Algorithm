@@ -1,6 +1,6 @@
 CXX = g++
 CPPFLAGS += -Iinclude
-CXXFLAGS += -std=c++11 -pg -g -W -Wall
+CXXFLAGS += -std=c++11 -g -W -Wall -fPIC
 
 CXX_SRCS := $(wildcard util/*cc)         \
             $(wildcard src/*.cc)
