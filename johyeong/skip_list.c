@@ -38,7 +38,7 @@ void free_list(skiplist *list);
 void show(skiplist *list);
 
 int main() {
-	int i,play=1,num;
+	int i,play=1,num,insert_num,delete_num,search_num;
 	skiplist list;
 
 	init(&list);
@@ -46,18 +46,45 @@ int main() {
 	srand(time(NULL));
 
 	for(i=0;i<100;i++)
-		insertion(list,rand()%100+1);
+		insertion(&list,rand()%100+1);
 
 	do{
 		printf("Skip list : 1.insertion 2.serach 3.deletion 4.show\n");
 		scanf("%d", &num);
 	
 		switch(num){
+			case 1:
+				scanf("%d", &insert_num);
+				insertion(&list,insert_num);
 
+				break;
+		
+			case 2:
+				scanf("%d", &search_num);
+				search(&list,search_num);
 
+				break;
+	
+			case 3:
+				scanf("%d", &delete_num);
+				deletion(&list,delete_num);
+
+				break;
+
+			case 4:
+				show(&list);
+							
+				break;
+
+			default:
+				printf("Please press proper number!\n");
+				continue;
 		}
+		printf("If you want to quit, please press 0. Or press any number!\n");
 		scanf("%d", &play);
 	}while(play!=0);
+	
+	free_list(&list);
 
 	return 0;
 }
@@ -129,7 +156,7 @@ void insertion(skiplist *list, int key){
 		//Allocating new memory
 
 		new->key = key;
-		mew->forward = (node**)malloc(sizeof(node*)*(level+1));
+		new->forward = (node**)malloc(sizeof(node*)*(level+1));
 		//Setting new key's information
 
 		for(i=1;i<=level;i++){
@@ -151,7 +178,7 @@ void search(skiplist *list, int key){
 	}
 	//Searching by subtracting level
 
-	if(x->forward[1]->key==key) {
+	if(index->forward[1]->key==key) {
 		printf("*************\n");
 		printf("Key %d found!\n", key);
 		printf("*************\n");	
@@ -232,7 +259,7 @@ void show(skiplist *list){
 	node *index = list->header;
     
 	while(index && index->forward[1]!=list->header){
-		printf("%d->",x->forward[1]->key);
+		printf("%d->",index->forward[1]->key);
 		index = index->forward[1];
 	}
 	//Showing all keys while move forward
