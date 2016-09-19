@@ -32,13 +32,16 @@ void init(skiplist *list);
 int level_determine();
 void insertion(skiplist *list, int key);
 void search(skiplist *list, int key);
+void free_node(node *_node);
+int deletion(skiplist *list, int key);
+void free_list(skiplist *list);
+void show(skiplist *list);
 
 int main() {
-	int i,play=1;
-	skiplist * list;
+	int i,play=1,num;
+	skiplist list;
 
-	list = (skiplist *)malloc(sizeof(skiplist));
-	skiplist_init(list);
+	init(&list);
 
 	srand(time(NULL));
 
@@ -46,8 +49,13 @@ int main() {
 		insertion(list,rand()%100+1);
 
 	do{
-		printf("Skip list : 1.insertion 2.serach 3.deletion\n");
+		printf("Skip list : 1.insertion 2.serach 3.deletion 4.show\n");
+		scanf("%d", &num);
+	
+		switch(num){
 
+
+		}
 		scanf("%d", &play);
 	}while(play!=0);
 
@@ -63,7 +71,7 @@ void init(skiplist *list){
 
 	header->forward = (node**)malloc(sizeof(node*)*(MAX_LEVEL + 1));
 
-	for(i = 0;i<=MAX_LEVEL;i++)
+	for(i=0;i<=MAX_LEVEL;i++)
         header->forward[i] = list->header;
 
 	list->level = 1;
@@ -139,73 +147,94 @@ void search(skiplist *list, int key){
 	for(i=list->level;i>=1;i--){
 		while(index->forward[i]->key<key)
 			index = index->forward[i];
-		//searching at same level
+		//Searching at same level
 	}
-	//searching by subtracting level
+	//Searching by subtracting level
 
 	if(x->forward[1]->key==key) {
 		printf("*************\n");
 		printf("Key %d found!\n", key);
 		printf("*************\n");	
 	}
+	//When key is found
+
 	else{
 		printf("**************\n");
 		printf("Can't find %d!\n", key);
 		printf("**************\n");
 	}
+	//Oh, can't find key...
 }
-void skiplist_node_free(snode *x) {
-    if (x) {
-        free(x->forward);
-        free(x);
-    }
+void free_node(node *_node){
+	if(_node){
+		free(_node->forward);
+		//You should free forward first!(Prevent memory leak)
+
+		free(_node);
+	}
 }
-int delete(skiplist *list, int key){
-    int i;
-    snode *update[SKIPLIST_MAX_LEVEL + 1];
-    snode *x = list->header;
-    for (i = list->level; i >= 1; i--) {
-        while (x->forward[i]->key < key)
-            x = x->forward[i];
-        update[i] = x;
-    }
+int deletion(skiplist *list, int key){
+	int i;
+	node *update[MAX_LEVEL + 1];
+	node *del = list->header;
 
-    x = x->forward[1];
-    if (x->key == key) {
-        for (i = 1; i <= list->level; i++) {
-            if (update[i]->forward[i] != x)
-                break;
-            update[i]->forward[i] = x->forward[i];
-        }
-        skiplist_node_free(x);
+	for(i=list->level;i>=1;i--){
+		while(del->forward[i]->key<key)
+			del = del->forward[i];
+		//Searching in same level
 
-        while (list->level > 1 && list->header->forward[list->level]
-                == list->header)
-            list->level--;
-        return 0;
-    }
-    return 1;
+		update[i] = del;
+		//Saving information before subtracting level
+	}
+	//Searching key to delete
+
+	del = del->forward[1];
+	//Move once forward
+
+	if(del->key==key){
+		for(i=1;i<=list->level;i++){
+			if(update[i]->forward[i] != del) 
+				break;
+			update[i]->forward[i] = del->forward[i];
+			//Connecting between deleted(Will be) node
+		}
+		free_node(del);
+		//Delete node
+	
+		while(list->level>1 && list->header->forward[list->level]==list->header)
+			list->level--;
+		//Resetting skip list's level
+
+		return 0;
+	}
+	//When find proper key
+
+	return 1;
+	//When can't find key to be deleted
 }
+void free_list(skiplist *list){
+	node *current_node = list->header->forward[1];
+   
+	while(current_node!=list->header){
+		node *next_node = current_node->forward[1];
+		free(current_node->forward);
+		//Must free forward first to prevent memory leak!
 
-void skiplist_free(skiplist *list)
-{
-    snode *current_node = list->header->forward[1];
-    while(current_node != list->header) {
-        snode *next_node = current_node->forward[1];
-        free(current_node->forward);
-        free(current_node);
-        current_node = next_node;
-    }
-    free(current_node->forward);
-    free(current_node);
-    free(list);
+		free(current_node);
+		current_node = next_node;
+	}
+	//Deleting all nodes while move forward
+	free(current_node->forward);
+	free(current_node);
+	free(list);
 }
-
-void skiplist_dump(skiplist *list) {
-    snode *x = list->header;
-    while (x && x->forward[1] != list->header) {
-        printf("%d[%d]->", x->forward[1]->key, x->forward[1]->value);
-        x = x->forward[1];
-    }
-    printf("NIL\n");
+void show(skiplist *list){
+	node *index = list->header;
+    
+	while(index && index->forward[1]!=list->header){
+		printf("%d->",x->forward[1]->key);
+		index = index->forward[1];
+	}
+	//Showing all keys while move forward
+	printf("Done!\n");
 }
