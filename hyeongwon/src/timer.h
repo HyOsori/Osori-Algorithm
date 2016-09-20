@@ -1,20 +1,23 @@
 #include <stdlib.h>
 #include <stdint.h>
-#include <time.h>
 
 #ifdef __MACH__
-#include <sys/time.h>
+#include <mach/mach_time.h>
+#define CLOCK_REALTIME 0
 #define CLOCK_MONOTONIC 0
 int clock_gettime(int, struct timespec* t) {
-    struct timeval now;
-    int rv = gettimeofday(&now, NULL);
-    if (rv) {
-        return rv;
-    }
-    t->tv_sec = now.tv_sec;
-    t->tv_nsec = now.tv_usec * 1000;
+    mach_timebase_info_data_t timebase;
+    mach_timebase_info(&timebase);
+    uint64_t time;
+    time = mach_absolute_time();
+    double nsec = ((double)time * (double)timebase.numer)/((double)timebase.denom);
+    double sec = ((double)timebase.numer)/((double)timebase.denom * 1e9);
+    t->tv_sec = sec;
+    t->tv_nsec = nsec;
     return 0;
 }
+#else
+#include <time.h>
 #endif
 
 #define BILLION 1000000000L
