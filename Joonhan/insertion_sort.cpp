@@ -18,13 +18,15 @@ int main(int argc, char *argv[]){
 }
 
 void insert_sort(int arr[], int argc){
-    for(int i=1; i<argc;i++){
-        for(int j=i; j>0; j--){
-            if(arr[j]>arr[j-1])
-                swap(int, arr[j],arr[j-1]);
+    for (int i = 1; i < argc; i++)
+    {
+        int j,temp;
+        temp = arr[(j = i)];
+        while ((--j >= 0) && (temp > arr[j])){
+            arr[j + 1] = arr[j];
         }
-    }
-}
+        arr[j + 1] = temp;
+    }}
 
 void print_arr(int arr[], int argc){
     for(int i=0; i<argc; i++){
