@@ -6,7 +6,7 @@ CXX_SRCS := $(wildcard util/*cc)         \
             $(wildcard src/*.cc)
 OBJS := $(CXX_SRCS:.cc=.o)
 BIN = bin/
-LIBNAME = -lpthread -lrt
+LIBNAME = -lpthread 
 
 all: test
 

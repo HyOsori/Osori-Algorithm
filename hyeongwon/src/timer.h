@@ -2,6 +2,21 @@
 #include <stdint.h>
 #include <time.h>
 
+#ifdef __MACH__
+#include <sys/time.h>
+#define CLOCK_MONOTONIC 0
+int clock_gettime(int, struct timespec* t) {
+    struct timeval now;
+    int rv = gettimeofday(&now, NULL);
+    if (rv) {
+        return rv;
+    }
+    t->tv_sec = now.tv_sec;
+    t->tv_nsec = now.tv_usec * 1000;
+    return 0;
+}
+#endif
+
 #define BILLION 1000000000L
 #define MILLION 1000000L
 
