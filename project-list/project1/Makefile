@@ -1,7 +1,7 @@
-all: makeinput
+all: test_generator
 
-makeinput: test_generator.c
-	g++ -std=c++11 -o test_generator test_generator.c
+test_generator: test_generator.cc
+	g++ -std=c++11 -o test_generator test_generator.cc
 
 clean:
 	rm test_generator *.txt

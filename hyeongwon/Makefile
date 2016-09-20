@@ -6,12 +6,12 @@ CXX_SRCS := $(wildcard util/*cc)         \
             $(wildcard src/*.cc)
 OBJS := $(CXX_SRCS:.cc=.o)
 BIN = bin/
-LIBNAME = -lpthread 
+LIB = lib/
 
 all: test
 
 test: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(BIN)$@ $^ $(LIBNAME)
+	$(CXX) $(CXXFLAGS) -o $(BIN)$@ $^ -L $(LIB)
 
 clean:
 	rm $(BIN)test $(OBJS)
