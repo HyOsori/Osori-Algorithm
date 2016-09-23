@@ -4,12 +4,13 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <time.h>
+#include <algorithm>
 #include "sort.h"
 #include "timer.h"
 
-typedef enum {ERROR, INSERTION_SORT, MERGE_SORT, QUICK_SORT, COUNT_SORT} SORT_TYPE;
+typedef enum {ERROR, INSERTION_SORT, MERGE_SORT, QUICK_SORT, COUNTING_SORT, STL_SORT} SORT_TYPE;
 
-int MAX_SIZE = 1000000;
+int MAX_SIZE = 100000000;
 
 void usage()
 {
@@ -44,14 +45,16 @@ SORT_TYPE GetSortType(const char * sname)
         return MERGE_SORT;
     if(strcmp(sname, "QuickSort") == 0)
         return QUICK_SORT;
-	if(strcmp(sname, "CountSort") == 0)
-		return COUNT_SORT;
+	if(strcmp(sname, "CountingSort") == 0)
+		return COUNTING_SORT;
+	if(strcmp(sname, "STLSort") == 0)
+		return STL_SORT;
 
     return ERROR;
 }
 
-int main(int argc, const char * argv[]) {
-    
+int main(int argc, const char * argv[])
+{    
     if(argc != 4)
     {
         usage();
@@ -73,7 +76,7 @@ int main(int argc, const char * argv[]) {
     }
     
     int size = 0;
-    int arr[MAX_SIZE];
+    int *arr = new int[MAX_SIZE];
 
     while(!feof(ifp))
     {
@@ -95,9 +98,12 @@ int main(int argc, const char * argv[]) {
         case QUICK_SORT:
             QuickSort(arr, size);
 			break;
-		case COUNT_SORT:
+		case COUNTING_SORT:
 			CountingSort(arr, size);
 			break;
+		case STL_SORT:
+            std::sort(arr, arr + size);
+            break;
         default:
             break;
     }

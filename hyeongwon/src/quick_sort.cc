@@ -1,6 +1,6 @@
 //#define SWAP(X, Y) {X=X^Y; Y=X^Y; X=X^Y;}
 
-int swap(int*, int*);
+void swap(int*, int*);
 
 void QuickSort(int *, int);
 void LomutoQuickSort(int *, int, int);
@@ -50,7 +50,7 @@ Partition(
     return i;
 }
 
-int swap(int *a, int *b)
+void swap(int *a, int *b)
 {
     int temp = *a;
     *a = *b;
