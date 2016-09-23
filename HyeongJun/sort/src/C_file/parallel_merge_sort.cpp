@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <unistd.h>
+#include <sys/wait.h>
 
 FILE* fi;
 
@@ -23,7 +25,6 @@ int main(int argc, char* argv[]) {
 		tarr[i] = arr[i];
 	}
 	printf("Merge Sort\n");
-	print_arr(arr, length);
 	merge_sort(arr,tarr, 0, length-1);
 	print_arr(arr, length);
 
@@ -31,10 +32,21 @@ int main(int argc, char* argv[]) {
 }
 void merge_sort(int arr[], int tarr[], int start, int end) {
 	if (start < end) {
+		int ret;
+	 	ret = fork();
+		int status=0;
 		int center = (start + end) / 2;
-		merge_sort(arr, tarr, start, center);
-		merge_sort(arr, tarr, center + 1, end);
-		merge(arr, tarr, start, end);
+		if(ret<0){
+			printf("ERROR\n");
+		}
+		if(ret>0){
+			merge_sort(arr,tarr,start,center);
+		}
+		else{	
+			merge_sort(arr,tarr,center+1,end);
+			wait(&status);
+			merge(arr, tarr, start, end);
+		}
 	}
 }
 void merge(int arr[], int tarr[], int start, int end) {
