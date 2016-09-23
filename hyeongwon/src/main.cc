@@ -9,7 +9,7 @@
 
 typedef enum {ERROR, INSERTION_SORT, MERGE_SORT, QUICK_SORT, COUNT_SORT} SORT_TYPE;
 
-int SIZE = 10;
+int MAX_SIZE = 1000000;
 
 void usage()
 {
@@ -72,13 +72,13 @@ int main(int argc, const char * argv[]) {
         exit(EXIT_FAILURE);
     }
     
-    int i = 0;
-    int arr[SIZE];
+    int size = 0;
+    int arr[MAX_SIZE];
 
     while(!feof(ifp))
     {
-        fscanf(ifp, "%u", &arr[i]);
-        i++;
+        fscanf(ifp, "%u", &arr[size]);
+        size++;
     }
 
 	struct timer* timer = CreateTimer();
@@ -87,22 +87,21 @@ int main(int argc, const char * argv[]) {
     switch(stype)
     {
         case INSERTION_SORT:
-            InsertionSort(arr, SIZE);
+            InsertionSort(arr, size);
             break;
         case MERGE_SORT:
-            MergeSort(arr, SIZE);
+            MergeSort(arr, size);
             break;
         case QUICK_SORT:
-            QuickSort(arr, SIZE);
+            QuickSort(arr, size);
 			break;
 		case COUNT_SORT:
-			CountingSort(arr, SIZE);
+			CountingSort(arr, size);
 			break;
         default:
             break;
     }
 	CheckTime(&timer->end);
-
 
 	GetDiff(timer);
 	PrintTimer(timer);
@@ -114,7 +113,7 @@ int main(int argc, const char * argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    for(i = 0; i < SIZE; i++)
+    for(int i = 0; i < size; i++)
     {
         fprintf(ofp, "%u\n", arr[i]);
     }
@@ -122,7 +121,7 @@ int main(int argc, const char * argv[]) {
     fclose(ifp);
     fclose(ofp);
     
-    if(CheckSorting(arr, SIZE) == false)
+    if(CheckSorting(arr, size) == false)
         exit(EXIT_FAILURE);
 
     return 0;
