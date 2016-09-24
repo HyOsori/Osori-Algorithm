@@ -1,4 +1,6 @@
-void print_hello();
+#include "print.h"
+
+extern void print_hello(void);
 
 int main(void) {
     print_hello();

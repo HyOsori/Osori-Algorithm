@@ -1,5 +1,6 @@
-CXX = g++
-CPPFLAGS += -Iinclude
+CXX = g++   # Compiler
+
+CPPFLAGS += -I include
 CXXFLAGS += -std=c++11 -g -W -Wall -fPIC
 
 CXX_SRCS := $(wildcard util/*cc)         \
@@ -11,7 +12,7 @@ LIB = lib/
 all: test
 
 test: $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $(BIN)$@ $^ -L $(LIB)
+	$(CXX) $(CXXFLAGS) -o $(BIN)$@ $(OBJS) -L $(LIB)
 
 clean:
 	rm $(BIN)test $(OBJS)
