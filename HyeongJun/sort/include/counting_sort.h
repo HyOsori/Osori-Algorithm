@@ -1,8 +1,9 @@
+#ifndef __COUNTING_SORT_H_
+#define __COUNTING_SORT_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include "swap.h"
 
-FILE* fi;
 
 int maximum(int arr[], int length);
 void counting_sort(int arr[], int tarr[], int length, int tlength);
@@ -36,3 +37,4 @@ void counting_sort(int arr[], int tarr[], int length, int tlength) {
 		arr[i] = temp[i];
 	}
 }
+#endif

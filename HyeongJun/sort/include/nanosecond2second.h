@@ -1,4 +1,5 @@
-
+#ifndef __NANOSECOND2SECOND_H_
+#define __NANOSECOND2SECOND_H_
 #include<stdio.h>
 #include<time.h>
 void convert2second(struct timespec* start,struct timespec* end);
@@ -22,3 +23,4 @@ void convert2second(struct timespec* start,struct timespec* end){
 		}
 	}
 }
+#endif

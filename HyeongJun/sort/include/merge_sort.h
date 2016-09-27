@@ -1,8 +1,9 @@
+#ifndef __MERGE_SORT_H_
+#define __MERGE_SORT_H_
 #include <stdio.h>
 #include <stdlib.h>
 #include "swap.h"
 
-FILE* fi;
 
 void merge_sort(int arr[],int tarr[],int start, int end);
 void merge(int arr[], int tarr[], int start, int end);
@@ -49,4 +50,4 @@ void merge(int arr[], int tarr[], int start, int end) {
 	}
 }
 
-
+#endif

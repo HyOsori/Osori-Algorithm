@@ -1,9 +1,10 @@
+#ifndef __INSERTION_SORT_H_
+#define __INSERTION_SORT_H_
 #include <stdio.h>
 #include <stdlib.h>
 #define limit 1000
 #include "swap.h"
 
-FILE* fi;
 
 //void copy_arr(int arr[], int tarr[], int start, int end)
 void insert_sort(int arr[], int length);
@@ -20,4 +21,4 @@ void insert_sort(int arr[], int length) {
 		}
 	}
 }
-
+#endif

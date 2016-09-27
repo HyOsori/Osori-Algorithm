@@ -1,3 +1,5 @@
+#ifndef __QUICK_SORT_H
+#define __QUICK_SORT_H_
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -6,7 +8,6 @@
 //I select the pivot randomly, and then swap it and the start element of array
 //Is it okay?
 
-FILE* fi;
 void quick_sort(int arr[], int p, int r);
 int partition(int arr[], int p, int r);
 void print_arr(int arr[], int length);
@@ -55,3 +56,4 @@ void print_arr(int arr[], int length) {
 	}
 	printf("\n");
 }
+#endif
