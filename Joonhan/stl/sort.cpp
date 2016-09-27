@@ -51,8 +51,8 @@ int main(int argc,char *argv[])
     printf("\n");
 
     current_utc_time(&end);
-    printf("ns: %lu\n", end.tv_nsec-start.tv_nsec);
+    printf("ms: %lu\n", (end.tv_nsec-start.tv_nsec)/1000000);
+    printf("us: %lu\n", (end.tv_nsec-start.tv_nsec)/1000);    
     return 0;
-        
 }
 
