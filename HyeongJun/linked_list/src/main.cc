@@ -1,7 +1,9 @@
 #include "linked_list.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 
+using namespace std;
 FILE* fi;
 
 int main(void){
@@ -16,8 +18,8 @@ int main(void){
 	do{	
 		printf("COMMAND : ");
 	
-		scanf("%c",&key);
-	
+		cin>>key;
+
 		switch(key){
 			case 'I':case 'D':
 				printf("INPUT THE KEY : ");
