@@ -1,0 +1,8 @@
+<linked list>
+
+There are serveral function such as insert, delete and print
+
+compile : make
+
+execute : bin/linked_list_exe 
+

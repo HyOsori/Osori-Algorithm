@@ -7,7 +7,7 @@ sample text file is composed of the unsorted numbers, and they have a blank betw
 
 
 Compile : make
-Execute : ./sorting_exe <Q,M,I,C> <sample.txt>
+Execute : bin/sorting_exe <Q,M,I,C> <sample.txt>
 	Q = quick sort, M = merge sort, I = insertion sort, C = counting sort
 	e.g>./sorting_exe Q sample.txt
 
