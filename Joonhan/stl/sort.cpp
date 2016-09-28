@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
-#include "../header/nanoclock.h"
+#include "timer2.h"
 
 using namespace std;
 
@@ -28,15 +28,19 @@ int main(int argc,char *argv[])
     }
     int length = i-1;
     int way;
-    printf("asend to 0 descend to 1");
+    printf("asend to 0 descend to 1\n");
     while(way==0||way==1){
     scanf("%d",&way);
-    if(way!=0||way!=0){
+    if(way==0||way==1){
+        break;
+    }
+    else{
         printf("invalid value!!\n");
-        }
+        return 0;
+    }
     }
 
-    clock_gettime(CLOCK_REALTIME,&start);
+    current_utc_time(&start);
     if(way==0)
         sort(array,array+length);
     else
@@ -46,8 +50,9 @@ int main(int argc,char *argv[])
     }
     printf("\n");
 
-    runtime(&start,&end);
+    current_utc_time(&end);
+    printf("ms: %lu\n", (end.tv_nsec-start.tv_nsec)/1000000);
+    printf("us: %lu\n", (end.tv_nsec-start.tv_nsec)/1000);    
     return 0;
-        
 }
 
