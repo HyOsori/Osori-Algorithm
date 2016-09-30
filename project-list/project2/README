@@ -1,0 +1,18 @@
+<Project 2 : Dictionary>
+
+This project is to implement Dictionary APIs library using
+various kinds of data structures.
+
+Dictionary data structure provides those main APIs.
+- Insert
+- Search
+- Delete
+
+Make a Dictionary library which is implemented with linked list,
+tree, hash table or other data structures internally.
+Check the performance and differentiate among data structures you used.
+
+Test generator not provided in this project.
+
+Main purpose of this project is to build your own data structure, 
+optimizing out and make a library so that you can use it later.
