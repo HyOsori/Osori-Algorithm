@@ -3,7 +3,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
+#include <iostream>
 
+using namespace std;
 struct node;
 typedef struct node* position;
 typedef position list;
@@ -88,10 +90,14 @@ position find_previous(position l,int key){
 }
 void print_list(list l){
 	position tmp = l->next;
+	if(tmp==NULL){
+		cout << "The list is empty" << endl;
+		return ;
+	}
 	while(tmp!=NULL){
-		printf("(%d) ",tmp->key);
+		cout << "(" << tmp->key << ") ";
 		tmp=tmp->next;
 	}
-	printf("\n");
+	cout << endl;
 }
 #endif
