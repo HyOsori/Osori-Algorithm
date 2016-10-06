@@ -1,0 +1,57 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int len(long long y);
+int main() {
+	int num,i;
+	long long sum[60];
+
+	FILE *input, *output;
+
+	input = fopen("input.txt", "r");
+	output = fopen("output.txt", "w");
+
+	fscanf(input, "%d", &num);
+
+	sum[0] = 1;
+	for(i=1;i<60;i++)
+		sum[i] = sum[i - 1] * 2 + (i + 1);
+
+	while (num--) {
+		long long x, y, z;
+		long long judge = 1;
+		long long total = 0;
+		int x_len,y_len;
+
+		fscanf(input, "%lld %lld", &x, &y);
+		
+		y_len = len(y);
+
+		while (x != y) {
+			z = x ^ (x+1);
+			for (i = 0; i < y_len; i++) {
+				if (z & judge == 1) {
+					total++;
+					z = z >> 1;
+				}
+			}
+			x++;
+		}
+
+		fprintf(output, "%lld\n", total);
+	}
+
+	fclose(input);
+	fclose(output);
+
+	return 0;
+}
+int len(long long y) {
+	int tmp=0;
+
+	while (y!=0) {
+		y /= 2;
+		tmp++;
+	}
+	return tmp;
+}
