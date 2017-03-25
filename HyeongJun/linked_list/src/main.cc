@@ -1,7 +1,4 @@
 #include "linked_list.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <iostream>
 
 using namespace std;
 FILE* fi;

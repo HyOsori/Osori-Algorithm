@@ -2,12 +2,14 @@ CXX = g++
 
 CPPFLAGS += -I include
 
-CXX_SRCS := src/main.cc
+CXX_SRCS := src/main.cc src/linked_list.cc
 
-TARGET = linked_list_exe
+TARGET = bin/exe
 
+debug :
+	$(CXX) -g -o $(TARGET) $(CXX_SRCS) $(CPPFLAGS)
 $(TARGET) : 
-	$(CXX) -o bin/$(TARGET) -g $(CXX_SRCS) $(CPPFLAGS)
+	$(CXX) -o $(TARGET) $(CXX_SRCS) $(CPPFLAGS)
 
 clean :
-	rm bin/$(TARGET)
+	rm $(TARGET)
